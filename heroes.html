@@ -1,0 +1,595 @@
+<html><head lang="en-RU" dir="ltr">
+	<meta charset="utf-8">
+
+
+	<title>Badcoderz Team</title>
+	<link rel="stylesheet" href="/static/css/octo-bulma-v05022018.css">
+	<link rel="stylesheet" href="/static/css/chartist.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.1/flickity.min.css">
+	<link rel="shortcut icon" href="/static/favicon.ico">
+	<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.1/flickity.pkgd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dragscroll/0.0.8/dragscroll.min.js"></script>
+	<script src="/static/js/lib/chartist.js"></script>
+	<script src="/static/js/lib/day.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="static/lol.ico" rel="icon">
+	
+
+
+
+	<!-- modal -->
+	<div class="modal" id="modal">
+	<div class="modal-background" id="modal-bg"></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title has-text-centered" id="modal-title">Сообщение</p>
+			<!-- <button class='delete' aria-label='close' id='modal-close'></button> -->
+		</header>
+		<section class="modal-card-body">
+			<div id="modal-content"></div>
+			<hr>
+			<p class="modal-content-bottom has-text-centered">Чтобы закрыть это окно, щелкни где-нибудь снаружи</p>
+		</section>
+		<!-- <footer class='modal-card-foot'></footer> -->
+	</div>
+</div>
+
+<style media="screen">
+	.modal-card-body .modal-content-bottom {
+		font-size: smaller;
+		color: #888888;
+		margin-top: -15px;
+		margin-bottom: -8px;
+	}
+</style>
+
+
+	<!-- modal -->
+	<div class="message-container"></div>
+
+<style media="screen">
+	.message-container {
+		pointer-events: none;
+		position: fixed;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: flex-end;
+		height: 100vh;
+		z-index: 1000;
+		max-width: 600px;
+		width: 100%;
+		padding: 0 20px;
+	}
+
+	.message-container > * {
+		pointer-events: all;
+		width: 100%;
+		max-width: 560px;
+		margin-bottom: 20px;
+		margin-left: -100px;
+		box-shadow: 0 5px 20px rgba(0,0,0, 0.35), 0 0 3px rgba(0,0,0, 0.35);
+		opacity: 0;
+		transition: opacity 0.5s, margin 0.5s;
+		transition-timing-function: ease-in;
+	}
+
+	.message-container > *.is-active {
+		opacity: 1;
+		margin-left: 0px;
+		transition: opacity 0.5s, margin 0.5s;
+		transition-timing-function: ease-out;
+	}
+</style>
+
+
+	<!-- navbar -->
+	<nav class="navbar is-fixed-top scrolled">
+	<div class="navbar-brand">
+		<a class="navbar-item" href="index.html">
+		
+			<!-- <span class='icon logo-octo-container'><object type="image/svg+xml" data="/static/img/svg/logo-octoteam-light.svg" class="logo-octo"></object></span> -->
+			<span>Badcoderz Team</span>
+		</a>
+
+		<div onclick="document.querySelector('#navMenu').classList.toggle('is-active');this.classList.toggle('is-active');" class="navbar-burger" id="burger">
+	</div>
+</nav>
+
+<style media="screen">
+	.profile-button > img {
+		border-radius: 50%;
+		box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+		/* border: 2px solid #DBDBDB;
+		margin-left: -8px;
+		margin-right: 8px;
+		width: 24px;
+		height: 24px; */
+	}
+
+	.navbar-dropdown .navbar-item > .icon {
+		margin-right: 5px;
+	}
+
+	.navbar-item .logo-octo-container {
+		margin-right: 10px;
+	}
+
+	.navbar-item .logo-octo {
+		width: 20px;
+	}
+</style>
+
+
+	<!-- loader -->
+	<div class="loading-container">
+		<i class="fas fa-cog fa-3x fa-spin loading-icon"></i>
+	</div>
+
+	<!-- content -->
+	<div class="maincontainer"><title>Lapis Page</title>
+
+<section class="section hero is-dark is-paddingless">
+	<div class="hero-body is-thin">
+		<div class="container has-text-centered">
+			<h1 class="title is-2">Список добродеев</h1>
+			<h1 class="subtitle">Эти люди делают так, чтобы мы хотели делать</h1>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container" id="goal-container">
+		<div class="has-text-centered">
+			<p class="is-size-3 has-text-centered">Цель на неделю - 100%</p>
+			<span class="is-pulled-left">10000P</span>
+			<span class="is-pulled-right">10000P</span>
+		</div>
+
+		<div style="position: relative; height: 80px;">
+			<progress id="goal-progress-add" class="progress is-large is-primary" value="10000" max="10000" style="position: absolute; top: 25px;"></progress>
+			<progress id="goal-progress" class="progress is-large is-dark is-transparent" value="9750" max="10000" style="position: absolute; top: 25px;"></progress>
+			<p style="position: absolute; top: 55px; width: 100%">
+				<span class="tag is-dark">За неделю 10000P</span>
+				<span class="tag is-primary">Последний 250P</span>
+				
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="section no-overflow">
+	<div class="container">
+		<div class="columns is-multiline">
+			<div class="column is-12 is-6-desktop">
+				<p class="title has-text-centered">Самые-самые</p>
+				<p class="subtitle has-text-centered">За все время</p>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-dark is-rounded is-size-2 is-hidden-mobile" style="margin: 44px auto;">
+						<img onclick="loadPage(this,'u/76561198246351374')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/65/65885708aa9d00dd0f59b05b8b927b67a001ff84_full.jpg" class="avatar">
+						<span class="trophy">
+							<i class="fas fa-trophy"></i>
+						</span>
+						<span>хомфуций - 28531P</span>
+					</p>
+					<span class="is-hidden-desktop">
+						<a onclick="loadPage(this,'u/76561198246351374')" class="tag is-dark is-rounded is-size-2">
+							<span class="trophy"><i class="fas fa-trophy"></i></span>
+							<span>хомфуций</span>
+						</a>
+						<p class="is-size-1">28531P</p>
+					</span>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-dark is-rounded is-size-3 is-hidden-mobile" style="margin: 32px auto;">
+						<img onclick="loadPage(this,'u/76561198401450799')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/00/00c0d2a2d02220c219351c440b18cce9c45e4705_full.jpg" class="avatar">
+						<span class="trophy">
+							<i class="fas fa-trophy"></i>
+						</span>
+						<span>kennyS - 26915P</span>
+					</p>
+					<span class="is-hidden-desktop">
+						<a onclick="loadPage(this,'u/76561198401450799')" class="tag is-dark is-rounded is-size-3">
+							<span class="trophy"><i class="fas fa-trophy"></i></span>
+							<span>kennyS</span>
+						</a>
+						<p class="is-size-2">26915P</p>
+					</span>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-dark is-rounded is-size-4 is-hidden-mobile" style="margin: 20px auto;">
+						<img onclick="loadPage(this,'u/76561198331003393')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/f2/f27495553830f0c43d776da88c4845a74aecd5c1_full.jpg" class="avatar">
+						<span class="trophy">
+							<i class="fas fa-trophy"></i>
+						</span>
+						<span>Kost - 25610P</span>
+					</p>
+					<span class="is-hidden-desktop">
+						<a onclick="loadPage(this,'u/76561198331003393')" class="tag is-dark is-rounded is-size-4">
+							<span class="trophy"><i class="fas fa-trophy"></i></span>
+							<span>Kost</span>
+						</a>
+						<p class="is-size-3">25610P</p>
+					</span>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198211864667')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/de/de7b80e011fcb94b9c37a1cae19d557e8cf5c4ca_full.jpg" class="avatar">
+						<span>Куртка Бомбер - 22680P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198260354737')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/7f/7fb07baced8c462c747ceaf925f8b33547f81068_full.jpg" class="avatar">
+						<span>Hellcom_ - 21627P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198105987374')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/54/540981ead70c492d676b099fb24cf1a9c00cc6d0_full.jpg" class="avatar">
+						<span>ПАНИМАЮ _NIGABEN_ - 18900P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198136465722')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/da/da9f983e4f74cc215b51b523851e313c01d08f66_full.jpg" class="avatar">
+						<span>WayZer - 17222P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198870691674')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3c/3cafe3e2f48ea8bec4e52a295ca0b7e9bfa85f2a_full.jpg" class="avatar">
+						<span>Toster123 - 13144P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198842761485')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/f5/f58fcc67ab4a31979126046bf6839c9bde395bf5_full.jpg" class="avatar">
+						<span>-=ViMeR=- - 13015P</span>
+					</p>
+				</div>
+				
+				<div class="topDonator has-text-centered">
+					<p class="tag is-light is-rounded is-size-5">
+						<img onclick="loadPage(this,'u/76561198311823095')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b1/b10c3b2a6e9730965b6c9d7f45f2a2051197aed3_full.jpg" class="avatar">
+						<span>&lt;rainbow=48&gt;СiЛО&lt;/rainbow&gt; - 12675P</span>
+					</p>
+				</div>
+				
+
+				<p class="subtitle has-text-centered">За месяц</p>
+				
+					<div class="topDonator has-text-centered">
+						<span class="tag is-transparent is-rounded is-size-5">
+							<img onclick="loadPage(this,'u/76561198182854322')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/be/be277961932d9afc9e71b854810deb9766f5c79d_full.jpg" class="avatar">
+							<span>Nezzie - 1500P</span>
+						</span>
+					</div>
+				
+					<div class="topDonator has-text-centered">
+						<span class="tag is-transparent is-rounded is-size-5">
+							<img onclick="loadPage(this,'u/76561198342063107')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8b/8b6c949de9b008047544775a91e413486ab974a4_full.jpg" class="avatar">
+							<span>Маслори - 1350P</span>
+						</span>
+					</div>
+				
+					<div class="topDonator has-text-centered">
+						<span class="tag is-transparent is-rounded is-size-5">
+							<img onclick="loadPage(this,'u/76561198407992559')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d9d66536fdb2bff5e7a92921cebdd4f891826fc_full.jpg" class="avatar">
+							<span>[LV] Lenny - 1000P</span>
+						</span>
+					</div>
+				
+					<div class="topDonator has-text-centered">
+						<span class="tag is-transparent is-rounded is-size-5">
+							<img onclick="loadPage(this,'u/76561198799607875')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3b/3bbcc5431cb8a2016bb548777be6806f72f5a1cc_full.jpg" class="avatar">
+							<span>SeeYouAgain - 980P</span>
+						</span>
+					</div>
+				
+					<div class="topDonator has-text-centered">
+						<span class="tag is-transparent is-rounded is-size-5">
+							<img onclick="loadPage(this,'u/76561198826111923')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ba/ba42f610aa42004069f251417e8d6f18978dbed5_full.jpg" class="avatar">
+							<span>AnImEsHnIcK NICK - 900P</span>
+						</span>
+					</div>
+				
+			</div>
+			<div class="column is-12 is-6-desktop">
+				<p class="title has-text-centered">Недавние</p>
+				<div class="timeline is-centered">
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198277257068')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/40/40c00d51d736e6bd03d0d77ab75e3137315ad3c7_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-08T07:51:41Z" data-tid="20">2 часа назад</p>
+							<p class="tag is-primary">250P от КусокБатона</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-24x24 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198148167590')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/66/669762e506c77dd4d2e6ba9af14e51b42fc13660_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T19:35:50Z" data-tid="21">14 часов назад</p>
+							<p class="tag is-light">3P от MIMPER</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198148167590')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/66/669762e506c77dd4d2e6ba9af14e51b42fc13660_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T19:33:15Z" data-tid="22">14 часов назад</p>
+							<p class="tag is-light">59P от MIMPER</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198235826994')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/80/8062a647e60d0e7ceea3ba320b9ad437af9e944d_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T18:05:01Z" data-tid="23">15 часов назад</p>
+							<p class="tag is-light">210P от darwin again</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198883406843')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bc/bcf451795e7bfcb6253d663f06d4ed1fc615ed06_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T15:15:18Z" data-tid="24">18 часов назад</p>
+							<p class="tag is-light">50P от MsHeKoLeNkO</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198865059976')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4d/4d04d5e1fa515bdc1083ca9aa736c8339f498e01_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T14:44:06Z" data-tid="25">19 часов назад</p>
+							<p class="tag is-light">57P от Стёга</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198835172176')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fd/fd5016908d869dc60635d3e76cfa6b48525979e9_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T14:41:44Z" data-tid="26">19 часов назад</p>
+							<p class="tag is-light">100P от [#]JuiCe</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-64x64 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198799607875')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3b/3bbcc5431cb8a2016bb548777be6806f72f5a1cc_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T14:19:51Z" data-tid="27">19 часов назад</p>
+							<p class="tag is-light">880P от SeeYouAgain</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-64x64 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198182854322')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/be/be277961932d9afc9e71b854810deb9766f5c79d_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T13:43:04Z" data-tid="28">20 часов назад</p>
+							<p class="tag is-light">800P от Nezzie</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561197983090814')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/37/37e65b64245ab486ed9e4452f291d6cf35b584f1_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T12:34:28Z" data-tid="29">21 час назад</p>
+							<p class="tag is-light">150P от Dogge</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198856697571')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/7c/7c846e2cdbc165179bf8f455848ece6b1c4f7a5c_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T11:47:17Z" data-tid="59">22 часа назад</p>
+							<p class="tag is-light">100P от Nemolevich</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198414789924')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2f/2fb5038837c59bf7f6ccfd4e0a3bf58a7694c948_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-07T08:22:15Z" data-tid="31">вчера</p>
+							<p class="tag is-light">79P от [#] shakeproduction</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198149056197')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/6b/6b0b009936398acb3b691e202192aa0822a54a59_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-06T19:19:47Z" data-tid="32">вчера</p>
+							<p class="tag is-light">50P от Paketik</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-32x32 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198149056197')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/6b/6b0b009936398acb3b691e202192aa0822a54a59_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-06T19:15:05Z" data-tid="33">вчера</p>
+							<p class="tag is-light">99P от Paketik</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						
+						<div class="timeline-marker is-image is-48x48 timeline-avatar">
+							<img onclick="loadPage(this,'u/76561198435716704')" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/47/47f528883e48bf5c286a3f90ca98f8e1d2ff62ff_full.jpg">
+						</div>
+						<div class="timeline-content">
+							<p class="heading timestamp-realtime" datetime="2020-02-06T19:08:32Z" data-tid="34">вчера</p>
+							<p class="tag is-light">100P от Dobryashka [MetaHub]</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						<div class="timeline-marker is-icon"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript" id="page-script">
+	setTimeout(function() {
+		var prog = document.getElementById('goal-progress-add');
+		if (!prog) return;
+
+		var st = 0;
+		var last;
+		var delta;
+
+		var int = setInterval(animate, 20);
+		function animate() {
+			if (!last) last = Date.now();
+			delta = Date.now() - last;
+			last = Date.now();
+
+			if (st >= 1) {
+				clearInterval(int);
+			} else {
+				st = Math.min(st + delta/1000, 1);
+				prog.value = 9750 + 250 * (st*(2-st));
+			}
+		}
+	}, 1500);
+
+	setTimeout(function () {
+		timeago(null, 'ru').render(document.querySelectorAll('.timestamp-realtime'))
+	}, 100)
+</script>
+
+<style media="screen">
+	#goal-container {
+		max-width: 1000px;
+	}
+
+	.topDonator {
+		margin: 0 0 20px 0;
+	}
+
+	.topDonator .avatar {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		border: 3px solid white;
+		box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+		margin-left: -32px;
+		margin-right: 3%;
+		cursor: pointer;
+	}
+
+	.timeline-avatar {
+		cursor: pointer;
+	}
+
+	.topDonator .tag-container {
+		margin-top: -12px;
+		margin-bottom: 30px;
+	}
+
+	.topDonator .tag.is-dark {
+		color: white;
+	}
+
+	.topDonator .trophy {
+		margin-right: 3%;
+	}
+
+	.topDonator:nth-of-type(1) .trophy {
+		color: gold;
+	}
+
+	.topDonator:nth-of-type(2) .trophy {
+		color: silver;
+	}
+
+	.topDonator:nth-of-type(3) .trophy {
+		color: #CD7F32;
+	}
+
+	.topDonator:nth-of-type(1) .avatar {
+		width: 184px;
+		height: 184px;
+		border: 5px solid white;
+		margin-left: -92px;
+	}
+
+	.topDonator:nth-of-type(2) .avatar {
+		width: 128px;
+		height: 128px;
+		border: 4px solid white;
+		margin-left: -64px;
+	}
+
+	.topDonator:nth-of-type(3) .avatar {
+		width: 96px;
+		height: 96px;
+		border: 4px solid white;
+		margin-left: -48px;
+	}
+
+	.tag.is-transparent {
+		background: none;
+	}
+</style>
+
+
+
+
+
+</body></html>

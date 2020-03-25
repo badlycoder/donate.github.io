@@ -1,0 +1,435 @@
+<html><head lang="en-RU" dir="ltr">
+	<meta charset="utf-8">
+
+	<!--
+		well, this is just quick proof-of-concept, gonna redo this at some point
+	-->
+
+	<title>Badcoderz Team</title>
+	<link rel="stylesheet" href="/static/css/octo-bulma-v05022018.css">
+	<link rel="stylesheet" href="/static/css/chartist.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.1/flickity.min.css">
+	<link rel="shortcut icon" href="/static/favicon.ico">
+	<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.1/flickity.pkgd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dragscroll/0.0.8/dragscroll.min.js"></script>
+
+	<meta name="theme-color" content="#554455">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="static/BadcoderzLogo.ico" rel="icon">
+
+
+	
+</div>
+
+<style media="screen">
+	.modal-card-body .modal-content-bottom {
+		font-size: smaller;
+		color: #888888;
+		margin-top: -15px;
+		margin-bottom: -8px;
+	}
+</style>
+
+
+	<!-- modal -->
+	<div class="message-container"></div>
+
+<style media="screen">
+	.message-container {
+		pointer-events: none;
+		position: fixed;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: flex-end;
+		height: 100vh;
+		z-index: 1000;
+		max-width: 600px;
+		width: 100%;
+		padding: 0 20px;
+	}
+
+	.message-container > * {
+		pointer-events: all;
+		width: 100%;
+		max-width: 560px;
+		margin-bottom: 20px;
+		margin-left: -100px;
+		box-shadow: 0 5px 20px rgba(0,0,0, 0.35), 0 0 3px rgba(0,0,0, 0.35);
+		opacity: 0;
+		transition: opacity 0.5s, margin 0.5s;
+		transition-timing-function: ease-in;
+	}
+
+	.message-container > *.is-active {
+		opacity: 1;
+		margin-left: 0px;
+		transition: opacity 0.5s, margin 0.5s;
+		transition-timing-function: ease-out;
+	}
+</style>
+
+
+	<!-- navbar -->
+	<nav class="navbar is-fixed-top scrolled">
+	<div class="navbar-brand">
+		<a class="navbar-item" onclick="loadPage(this,'')">
+			<!-- <span class='icon logo-octo-container'><object type="image/svg+xml" data="/static/img/svg/logo-octoteam-light.svg" class="logo-octo"></object></span> -->
+			<span>Badcoderz Team</span>
+		</a>
+	</div>
+
+	<div id="navMenu" class="navbar-menu">
+		<div class="navbar-end">
+		</div>
+	</div>
+</nav>
+
+<style media="screen">
+	.profile-button > img {
+		border-radius: 50%;
+		box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+		/* border: 2px solid #DBDBDB;
+		margin-left: -8px;
+		margin-right: 8px;
+		width: 24px;
+		height: 24px; */
+	}
+
+	.navbar-dropdown .navbar-item > .icon {
+		margin-right: 5px;
+	}
+
+	.navbar-item .logo-octo-container {
+		margin-right: 10px;
+	}
+
+	.navbar-item .logo-octo {
+		width: 20px;
+	}
+</style>
+
+
+	<!-- loader -->
+	<div class="loading-container">
+		<i class="fas fa-cog fa-3x fa-spin loading-icon"></i>
+	</div>
+
+	<!-- content -->
+	<div class="maincontainer"><title>Lapis Page</title>
+
+<section class="section hero is-dark is-paddingless">
+	<div class="hero-body is-thin">
+		<div class="container has-text-centered">
+			<h1 class="title is-2">Badcoderz Team</h1>
+			<h2 class="subtitle">Мы делаем игры лучше!</h2>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container has-text-centered">
+		<div class="columns is-mobile is-multiline">
+			<div class="column has-text-centered is-4-mobile"><a class="has-text-dark" href="https://vk.com/losstoanna" target="_blank">
+				<span class="icon is-large"><i class="fab fa-3x fa-vk"></i></span>
+				<p class="is-size-5-tablet">ВКонтакте</p>
+			</a></div>
+			<div class="column has-text-centered is-4-mobile"><a class="has-text-dark" href="https://steamcommunity.com/id/badcoderz/" target="_blank">
+				<span class="icon is-large"><i class="fab fa-3x fa-steam"></i></span>
+				<p class="is-size-5-tablet">Steam</p>
+			</a></div>
+			<div class="column has-text-centered is-4-mobile"><a class="has-text-dark" href="heroes.html">
+				<span class="icon is-large"><i class="fas fa-3x fa-medal"></i></span>
+				<p class="is-size-5-tablet">Наши герои</p>
+			</a></div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section hero">
+	<div class="container has-text-centered">
+		<p class="title">Кто такие Badcoderz Team?</p>
+		<p class="subtitle">Познакомимся поближе</p>
+	</div>
+</section>
+<section class="section landing is-skewed">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-4 is-offset-1 is-hidden-mobile">
+				<img class="image" src="static/svg/game-development.svg">
+			</div>
+			<div class="column is-5 content is-medium">
+				<p class="title is-4">Геймеры</p>
+				<p>Прежде всего, мы люди, для которых игры – неотъемлемая часть жизни. Мы играем каждый день, общаемся и находим здесь лучших друзей</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section landing">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-5 is-offset-2 content is-medium">
+				<p class="title is-4">Разработчики</p>
+				<p>Играть для нас мало, мы любим создавать... А потом играть в наши творения вместе с друзьями</p>
+			</div>
+			<div class="column is-4 is-hidden-mobile">
+				<img class="image" src="static/svg/handcraft.svg">
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section landing is-skewed is-mirrored">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-4 is-offset-1 is-hidden-mobile">
+				<img class="image" src="static/svg/pencil.svg">
+			</div>
+			<div class="column is-5 content is-medium">
+				<p class="title is-4">Энтузиасты</p>
+				<p>Хоть в наших проектах и присутствуют пожертвования, заработок денег для нас не приоритет</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section landing">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-5 is-offset-2 content is-medium">
+				<p class="title is-4">Исследователи</p>
+				<p>Каждый день мы изучаем новые технологии, чтобы делать то, что никто никогда раньше не видел</p>
+			</div>
+			<div class="column is-4 is-hidden-mobile">
+				<img class="image" src="static/svg/microscope.svg">
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section landing is-skewed">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-4 is-offset-1 is-hidden-mobile">
+				<img class="image" src="static/svg/idea.svg">
+			</div>
+			<div class="column is-5 content is-medium">
+				<p class="title is-4">Экспериментаторы</p>
+				<p>Мы всегда пробуем что-то новое, сохраняя при этом баланс между техническими инновациями и удобством использования</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section landing">
+	<div class="container">
+		<div class="columns is-vcentered">
+			<div class="column is-5 is-offset-2 content is-medium">
+				<p class="title is-4">Простые люди</p>
+				<p>Мы стараемся быть ближе к игрокам – каждый день мы общаемся с ними на форумах и на серверах, их предложения составляют огромную часть наших проектов</p>
+			</div>
+			<div class="column is-4 is-hidden-mobile">
+				<img class="image" src="static/svg/brainstorm.svg">
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<style media="screen">
+	.has-text-shadow {
+		color: #eeeeee;
+		text-shadow: 0 2px 15px rgba(0,0,0, 0.5);
+	}
+
+	.carousel-container {
+		position: relative;
+		padding: 100px 0;
+	}
+
+	.carousel-container .container {
+		margin: -50px auto 50px auto;
+	}
+
+	.post-carousel .carousel-cell {
+		width: 90%;
+		max-width: 550px;
+		margin: 0 20px;
+		padding: 5px 0 25px 0;
+	}
+
+	.post {
+		transition: box-shadow 1s, opacity 0.3s;
+		opacity: 0.6;
+		box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+	}
+
+	.post-carousel .carousel-cell.is-selected .post {
+		opacity: 1;
+		box-shadow: 0 10px 25px rgba(0,0,0, 0.2);
+	}
+
+	.post .card-content {
+		position: relative;
+		max-height: 240px;
+		overflow: hidden;
+	}
+
+	.post .card-content::after {
+		position: absolute;
+		top: 0;
+		height: 240px;
+		width: 100%;
+		content: "";
+		background: linear-gradient(to top,
+			rgba(255,255,255, 1) 2%,
+			rgba(255,255,255, 0) 20%
+		);
+		pointer-events: none;
+	}
+
+	.server-card .progress {
+		height: 2.25em;
+		border-radius: 290486px 0 0 290486px;
+	}
+
+	.server-card .level:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		.server-card .level-left + .level-right {
+			margin-top: 1rem;
+		}
+	}
+
+	.server-image {
+		width: 100vw;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.bg-carousel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	hr.is-bold {
+		height: 1px;
+		margin: -1px 0 0 0;
+		padding: 0;
+		background: rgba(10,10,10, 0.3);
+	}
+
+	.bg-carousel .flickity-viewport {
+		height: 100% !important;
+	}
+
+	.main-carousel .carousel-cell {
+		transition: opacity 0.3s;
+		display: flex;
+		width: 90%;
+		max-width: 660px;
+		margin: 0 50px;
+		opacity: 0.25;
+	}
+
+	.main-carousel .carousel-cell.is-selected {
+		opacity: 1;
+	}
+
+	.main-carousel .flickity-page-dots .dot {
+		background-color: white;
+	}
+
+	.flickity-slider {
+		display: flex;
+		align-items: center;
+	}
+
+	.landing .image {
+		max-height: 256px;
+		opacity: 0.85;
+	}
+
+	.is-skewed {
+		position: relative;
+	}
+
+	.is-skewed::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: skewY(-2deg);
+		background-color: rgba(0,0,0, 0.05);
+	}
+
+	.is-skewed.is-mirrored::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: skewY(2deg);
+		background-color: rgba(0,0,0, 0.05);
+	}
+
+	/* p.address {
+		cursor: pointer;
+	}*/
+
+	p.address:not(:hover) i {
+		display: none;
+	}
+</style>
+
+<script type="text/javascript" id="page-script">
+
+setTimeout(function(){
+	
+	var csl_post = new Flickity('.post-carousel', {
+		selectedAttraction: 0.05,
+		friction: 0.5,
+	});
+
+	var csl_bg = new Flickity('.bg-carousel', {
+		initialIndex: 0,
+		draggable: false,
+		pageDots: false,
+		prevNextButtons: false,
+		wrapAround: true,
+		selectedAttraction: 0.06,
+		friction: 0.5,
+	});
+
+	var el = document.querySelector('.main-carousel');
+	var csl = new Flickity(el, {
+		initialIndex: 0,
+		selectedAttraction: 0.05,
+		friction: 0.5,
+		autoPlay: 3000,
+		wrapAround: true,
+	});
+
+	csl.on('change', function(i){ csl_bg.select(i) });
+}, 100)
+
+function copy(text){
+	var inp = document.createElement('input')
+	document.body.appendChild(inp)
+	inp.value = text
+	inp.select()
+	document.execCommand('copy', false)
+	inp.remove()
+}
+</script>
+</div>
+
+
+</body></html>
